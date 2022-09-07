@@ -1,0 +1,36 @@
+
+version: "3"
+
+services:
+  mosquitto:
+    image: eclipse-mosquitto
+    networks: 
+      mqttnetwork:
+        ipv4_address: 172.20.0.10
+    volumes:
+      - ./mqtt/mosquitto:/mosquitto/:rw
+      - ./mqtt/mosquitto/config:/mosquitto/conf
+      - ./mqtt/mosquitto/data:/mosquitto/data
+      - ./mqtt/mosquitto/log:/mosquitto/log
+
+  rand_pub:
+    build: './rand_pub'
+    networks: 
+      mqttnetwork:
+        ipv4_address: 172.20.0.11
+  rand_sub:
+    build: './rand_sub'
+    networks: 
+      mqttnetwork:
+        ipv4_address: 172.20.0.12
+  mean_table:
+    build: './mean_table'
+    networks: 
+      mqttnetwork:
+        ipv4_address: 172.20.0.13
+
+networks:
+  mqttnetwork:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

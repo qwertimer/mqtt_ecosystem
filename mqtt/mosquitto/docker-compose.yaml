@@ -3,9 +3,19 @@ version: "3"
 services:
   mosquitto:
     image: eclipse-mosquitto
-    network_mode: host
+    networks: 
+      mqttnetwork:
+        ipv4_address: 172.20.0.10
     volumes:
       - ./:/mosquitto/:rw
       - ./config:/mosquitto/conf
       - ./data:/mosquitto/data
       - ./log:/mosquitto/log
+
+
+
+networks:
+  mqttnetwork:
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
