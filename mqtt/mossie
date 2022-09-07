@@ -1,0 +1,38 @@
+#!/usr/bin/env python3
+import typer
+import subprocess
+import shlex
+from pathlib import Path
+from secrets import secrets
+from rich.progress import Progress, SpinnerColumn, TextColumn
+app = typer.Typer()
+
+def get_dir():
+    return ROOT
+
+@app.command()
+def run():
+    """
+    Docker-compose wrapper for mosquitto.
+    Runs mosquitto MQTT broker inside docker on port 1883
+    removes the user in the configuration and replaces it with the user found in secrets
+    """
+    FILE = Path(__file__).resolve()
+    directory = FILE.parents[0]
+    chdir = f"cd {directory}/mosquitto"
+    config = "/mosquitto/config/password.txt"
+    commands = [ f"/bin/sh -c '{chdir} && docker-compose up -d'",
+                 f"/bin/sh -c '{chdir} && docker-compose exec mosquitto mosquitto_passwd -D {config} user'",
+                 f"/bin/sh -c '{chdir} && docker-compose exec mosquitto mosquitto_passwd -b {config} {secrets['user']} {secrets['pass']}'" ]
+    with Progress(
+        SpinnerColumn(),
+        TextColumn("[progress.description]{task.description}"),
+        transient=True,
+    ) as progress:
+        progress.add_task(description="Processing...", total=None)
+        for command in commands:
+            print(f"Running {command}")
+            args = shlex.split(command)
+            p = subprocess.Popen(args, stdout = subprocess.PIPE)
+if __name__ == "__main__":
+    app()
