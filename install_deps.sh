@@ -1,11 +1,9 @@
 #!/bin/bash
-
-
 # shellcheck disable=SC2016
 set -e
 # export PATH="/bin:/usr/bin:/usr/local/bin" # safer, if you can
 
-(( BASH_VERSINFO[0] < 4 )) && echo "Bash 4+ required." && exit 1
+#(( BASH_VERSINFO[0] < 4 )) && echo "Bash 4+ required." && exit 1
 
 : "${PAGER:=more}"
 : "${EDITOR:=vi}"
@@ -15,16 +13,6 @@ set -e
 declare -A HELP
 declare -A CONF
 
-_initialize() {
-  : # put initialization code here
-}
-
-_alternatives() {
-  # put alternative argument possibilities here
-  if [[ $CMD = a ]];then
-    x.ansible "$@"
-  fi
-}
 
 HELP[python]='Installs Python.'
 x.python() {
@@ -35,6 +23,7 @@ HELP[pip]='Installs Pip.'
 x.pip() {
   curl https://bootstrap.pypa.io/get-pip.py | python3
 }
+
 
 HELP[ansible]='Installs Ansible.'
 x.ansible() {
@@ -228,8 +217,6 @@ if [[ -n $COMP_LINE ]]; then
   exit
 fi
 
-_config_read
-_have _initialize && _initialize "$@"
 
 for c in "${COMMANDS[@]}"; do
   if [[ $c == "$EXE" ]]; then
@@ -253,5 +240,4 @@ if _have _alternatives; then
   exit $?
 fi
 
-x.usage "$@"
 

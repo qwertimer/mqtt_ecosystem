@@ -46,4 +46,10 @@ the containers after starting `docker exec` can be run.
 Whilst the ansible build is available the docker-compose file is the
 most succinct and best way to view the containers outputs.
 
+# Installation
+
+To install the system dependencies on the computer there is an installer
+file called `install_deps.sh`. To install all dependencies run
+`./install_deps all`.
+
 
