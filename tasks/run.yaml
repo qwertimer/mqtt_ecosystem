@@ -1,0 +1,3 @@
+---
+- name: Start containers from compose file
+  ansible.builtin.shell: docker-compose up 

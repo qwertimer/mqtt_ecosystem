@@ -1,6 +1,6 @@
 # Overview of System
 
-The system is seperated into four separate folders each one containing a
+The system is separated into four separate folders each one containing a
 dockerfile for running each program isolated in their own docker
 container.
 
@@ -42,5 +42,8 @@ The ansible playbook is available to automatically start the docker
 containers. An additional playbook is provided to automatically install
 docker and tools for interacting with containers from ansible. To view
 the containers after starting `docker exec` can be run.
+
+Whilst the ansible build is available the docker-compose file is the
+most succinct and best way to view the containers outputs.
 
 

@@ -1,0 +1,20 @@
+- name: Build rand_pub
+  community.docker.docker_image:
+    name: rand_pub
+    build:
+      path: ./rand_pub
+    source: build
+
+- name: Build rand_sub
+  community.docker.docker_image:
+    name: rand_sub
+    build:
+      path: ./rand_sub
+    source: build
+
+- name: Build mean_table
+  community.docker.docker_image:
+    name: mean_table
+    build:
+      path: ./mean_table
+    source: build
