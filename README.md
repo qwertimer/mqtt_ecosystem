@@ -40,11 +40,9 @@ easily changed.
 
 The ansible playbook is available to automatically start the docker
 containers. An additional playbook is provided to automatically install
-docker and tools for interacting with containers from ansible. To view
-the containers after starting `docker exec` can be run.
-
-Whilst the ansible build is available the docker-compose file is the
-most succinct and best way to view the containers outputs.
+docker and tools for interacting with containers from ansible. To
+view the output of the mean_table containers after starting please
+run the command shown in the echo container task.
 
 # Installation
 
