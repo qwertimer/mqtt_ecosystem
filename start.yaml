@@ -2,6 +2,5 @@
   become: true
 
   tasks:
-    - include: tasks/install_docker.yaml
     - include: tasks/01_build.yaml
-    - include: tasks/02_start.yaml
+    - include: tasks/02_run.yaml
