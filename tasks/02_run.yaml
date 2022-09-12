@@ -1,3 +1,14 @@
 ---
 - name: Start containers from compose file
-  ansible.builtin.shell: docker-compose up 
+  ansible.builtin.shell: docker-compose up -d
+
+- name: Attach to logs of mean_table
+  ansible.builtin.shell: docker ps --filter name=switchdin-mean_table | awk '{ print $1 }' | grep -v CONTAINER
+  register: container_id
+
+- name: echo container
+  ansible.builtin.debug: 
+    msg: "Please run : \
+          `docker logs -f {{ container_id.stdout }}` \
+          to view the container output"
+
